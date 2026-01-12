@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Registration</title>
+    <link rel="stylesheet" href="stylesheet/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form_header">
+            <h1>Vendor Registration Form</h1>
+            <p>Complete your business details to get started</p>
+        </div>
+
+        <form id="vendorForm" novalidate>
+            <section class="form_section">
+                <h2>Business Details</h2>
+                
+                <div class="form_group">
+                    <label class="required">Type of Business</label>
+                    <div class="radio_group">
+                        <label class="radio_label">
+                            <input type="radio" name="businessType" value="sole-proprietorship" required>
+                            <span>Sole Proprietorship</span>
+                        </label>
+                        <label class="radio_label">
+                            <input type="radio" name="businessType" value="partnership">
+                            <span>Partnership</span>
+                        </label>
+                        <label class="radio_label">
+                            <input type="radio" name="businessType" value="private-limited">
+                            <span>Private Limited Company</span>
+                        </label>
+                        <label class="radio_label">
+                            <input type="radio" name="businessType" value="public-limited">
+                            <span>Public Limited Company</span>
+                        </label>
+                        <label class="radio_label">
+                            <input type="radio" name="businessType" value="llp">
+                            <span>Limited Liability Partnership (LLP)</span>
+                        </label>
+                    </div>
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_group">
+                    <label for="businessName" class="required">Business Name</label>
+                    <input type="text" id="businessName" name="businessName" required 
+                           minlength="3" maxlength="100" placeholder="Enter your registered business name">
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_group" id="registrationGroup" style="display: none;">
+                    <label for="businessRegistration" class="required">Business Registration Number</label>
+                    <input type="text" id="businessRegistration" name="businessRegistration" 
+                           placeholder="Enter your registration number">
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_group">
+                    <label for="panNumber" class="required">PAN Number</label>
+                    <input type="text" id="panNumber" name="panNumber" required 
+                           placeholder="ABCDE1234F" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" maxlength="10">
+                    <span class="error_message"></span>
+                    <small class="field_hint">Format: ABCDE1234F (5 letters + 4 digits + 1 letter)</small>
+                </div>
+
+                <div class="form_group">
+                    <label for="operatingSince" class="required">Operating Since</label>
+                    <input type="date" id="operatingSince" name="operatingSince" required>
+                    <span class="error_message"></span>
+                </div>
+                
+                <div class="form_group">
+                    <label class="required">Business Categories</label>
+                    <div class="checkbox_group">
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="electronics">
+                            <span>Electronics</span>
+                        </label>
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="fashion">
+                            <span>Fashion & Apparel</span>
+                        </label>
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="home">
+                            <span>Home & Kitchen</span>
+                        </label>
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="beauty">
+                            <span>Beauty & Personal Care</span>
+                        </label>
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="sports">
+                            <span>Sports & Fitness</span>
+                        </label>
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="books">
+                            <span>Books & Stationery</span>
+                        </label>
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="toys">
+                            <span>Toys & Games</span>
+                        </label>
+                        <label class="checkbox_label">
+                            <input type="checkbox" name="categories" value="automotive">
+                            <span>Automotive</span>
+                        </label>
+                    </div>
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_group">
+                    <label for="monthlySales" class="required">Monthly Sales Estimate</label>
+                    <select id="monthlySales" name="monthlySales" required>
+                        <option value="">Select sales range</option>
+                        <option value="0-50k">₹0 - ₹50,000</option>
+                        <option value="50k-1L">₹50,000 - ₹1,00,000</option>
+                        <option value="1L-5L">₹1,00,000 - ₹5,00,000</option>
+                        <option value="5L-10L">₹5,00,000 - ₹10,00,000</option>
+                        <option value="10L-50L">₹10,00,000 - ₹50,00,000</option>
+                        <option value="50L+">₹50,00,000+</option>
+                    </select>
+                    <span class="error_message"></span>
+                </div>
+            </section>
+
+            <section class="form_section">
+                <h2>Owner Details</h2>
+
+                <div class="form_group">
+                    <label for="ownerName" class="required">Full Name of Owner</label>
+                    <input type="text" id="ownerName" name="ownerName" required 
+                           placeholder="Enter the owner's complete name">
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_row">
+                    <div class="form_group">
+                        <label for="ownerEmail" class="required">Email Address</label>
+                        <input type="email" id="ownerEmail" name="ownerEmail" required 
+                               placeholder="owner@example.com">
+                        <span class="error_message"></span>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="ownerPhone" class="required">Contact Number</label>
+                        <input type="tel" id="ownerPhone" name="ownerPhone" required 
+                               placeholder="9876543210" pattern="[0-9]{10}" maxlength="10">
+                        <span class="error_message"></span>
+                        <small class="field_hint">Enter 10-digit mobile number</small>
+                    </div>
+                </div>
+
+                <div class="form_group">
+                    <label for="ownerDob" class="required">Date of Birth</label>
+                    <input type="date" id="ownerDob" name="ownerDob" required>
+                    <span class="error_message"></span>
+                    <small class="field_hint">Must be 18 years or older</small>
+                </div>
+
+                <div class="form_group">
+                    <label for="businessAddress" class="required">Registered Business Address</label>
+                    <input type="text" id="businessAddress" name="businessAddress" required 
+                           placeholder="Street, Area, Landmark">
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_row">
+                    <div class="form_group">
+                        <label for="businessPincode" class="required">Pincode</label>
+                        <input type="text" id="businessPincode" name="businessPincode" required 
+                               placeholder="123456" pattern="[0-9]{6}" maxlength="6">
+                        <span class="error_message"></span>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="warehouseLocation">Warehouse Location</label>
+                        <input type="text" id="warehouseLocation" name="warehouseLocation" 
+                               placeholder="Optional: warehouse address">
+                        <span class="error_message"></span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="form_section">
+                <h2>Banking Information</h2>
+
+                <div class="form_group">
+                    <label for="accountHolder" class="required">Account Holder Name</label>
+                    <input type="text" id="accountHolder" name="accountHolder" required 
+                           placeholder="Name as per bank records">
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_row">
+                    <div class="form_group">
+                        <label for="bankName" class="required">Bank Name</label>
+                        <select id="bankName" name="bankName" required>
+                            <option value="">Select your bank</option>
+                            <option value="sbi">State Bank of India</option>
+                            <option value="hdfc">HDFC Bank</option>
+                            <option value="icici">ICICI Bank</option>
+                            <option value="axis">Axis Bank</option>
+                            <option value="pnb">Punjab National Bank</option>
+                            <option value="bob">Bank of Baroda</option>
+                            <option value="kotak">Kotak Mahindra Bank</option>
+                            <option value="yes">Yes Bank</option>
+                            <option value="idbi">IDBI Bank</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="error_message"></span>
+                    </div>
+
+                    <div class="form_group">
+                        <label for="accountNumber" class="required">Account Number</label>
+                        <input type="text" id="accountNumber" name="accountNumber" required 
+                               placeholder="Enter account number" pattern="[0-9]{10,18}" maxlength="18">
+                        <span class="error_message"></span>
+                        <small class="field_hint">10-18 digits</small>
+                    </div>
+                </div>
+
+                <div class="form_group">
+                    <label for="ifscCode" class="required">IFSC Code</label>
+                    <input type="text" id="ifscCode" name="ifscCode" required 
+                           placeholder="ABCD0123456" pattern="[A-Z]{4}0[A-Z0-9]{6}" maxlength="11">
+                    <span class="error_message"></span>
+                    <small class="field_hint">Format: ABCD0123456</small>
+                </div>
+            </section>
+
+            <section class="form_section">
+                <h2>Tax Details</h2>
+
+                <div class="form_group">
+                    <label class="required">GST Registration Status</label>
+                    <div class="radio_group">
+                        <label class="radio_label">
+                            <input type="radio" name="taxStatus" value="registered" required>
+                            <span>GST Registered</span>
+                        </label>
+                        <label class="radio_label">
+                            <input type="radio" name="taxStatus" value="not-registered">
+                            <span>Not GST Registered (will register later)</span>
+                        </label>
+                    </div>
+                    <span class="error_message"></span>
+                </div>
+
+                <div class="form_group" id="gstGroup" style="display: none;">
+                    <label for="gstNumber" class="required">GST Registration Number</label>
+                    <input type="text" id="gstNumber" name="gstNumber" 
+                           placeholder="22AAAAA0000A1Z5" 
+                           pattern="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}" 
+                           maxlength="15">
+                    <span class="error_message"></span>
+                    <small class="field_hint">15-character GST number</small>
+                </div>
+            </section>
+
+            <div class="form_actions">
+                <button type="submit" class="btn_primary">SUBMIT</button>
+                <button type="reset" class="btn_secondary">Clear Form</button>
+            </div>
+        </form>
+
+        <div id="successMessage" class="success_message" style="display: none;">
+            <h3>Completed</h3>
+            <p>Your business and banking information has been saved successfully.</p>
+        </div>
+    </div>
+
+    <script src="scripts/errorHandler.js"></script>
+    <script src="scripts/validation.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
