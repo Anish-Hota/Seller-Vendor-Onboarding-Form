@@ -245,6 +245,33 @@ function validateInputField(field) {
             const currentTaxStatus = document.querySelector('input[name="taxStatus"]:checked')?.value;
             errorMsg = checkGstNumber(field.value, currentTaxStatus);
             break;
+        case 'storeName' :
+            errorMsg = checkStoreName(fieldValue);
+            break;
+        case 'storDescription' :
+            errorMsg = checkStoreDescription(fieldValue);
+            break;
+        case 'storeSlug' :
+            errorMsg = checkStoreSlug(fieldValue);
+            break;
+        case 'currency':
+            const selectedCurrency = document.querySelector('input[name="currency"]:checked');
+            fieldValue = selectedCurrency ? selectedCurrency.value : '';
+            errorMsg = checkCurrency(fieldValue);
+            break;
+        case 'shippingPolicy':
+            errorMsg = checkShippingPolicy();
+            break;
+        case 'returnPolicy':
+            errorMsg = checkReturnPolicy();
+            break;
+        case 'qualityAssurance':
+            errorMsg = checkQualityAssurance();
+            break;
+        case 'termsConditions':
+            errorMsg = checkTermsConditions();
+            break;
+        
     }
     
     if (errorMsg) {
