@@ -260,6 +260,80 @@
                 </div>
             </section>
 
+            <section class="form_section">
+                <h2>Store Information</h2>
+                <div class="form_group">
+                    <label for="storeName" class="required">Store Name</label>
+                    <input type="text" id="storeName" name="storeName" required minlength="5" maxlength="50" placeholder="Enter your unique store name">
+                    <span class="error_message"></span>
+                    <small class="field_hint">5-50 15-character, must be unique</small>
+                </div>
+                <div class="form_group">
+                    <label for="storeDescription" class="required">Store Description</label>
+                    <textarea id="storeDescription" name="storeDescription" required 
+                              maxlength="500" rows="4" 
+                              placeholder="Describe your store and products..."></textarea>
+                    <span class="error_message"></span>
+                    <small class="field_hint char_counter">0 / 500 characters</small>
+                </div>
+                <div class="form_group">
+                    <label for="storeSlug" class="required">Store URL Slug</label>
+                    <div class="slug_input_wrapper">
+                        <input type="text" id="storeSlug" name="storeSlug" required 
+                               pattern="[a-z0-9-]+" placeholder="store-url-slug" readonly>
+                        <button type="button" id="editSlugBtn" class="edit_slug_btn">
+                            <span id="lockIcon">🔒</span> Edit
+                        </button>
+                    </div>
+                    <span class="error_message"></span>
+                    <small class="field_hint">Auto-generated from store name. Click Edit to customize.</small>
+                </div>
+                <div class="form_group">
+                    <label class="required">Preferred Currency</label>
+                    <div class="radio_group">
+                        <label class="radio_label">
+                            <input type="radio" name="currency" value="INR" required checked>
+                            <span>Indian Rupee (₹ INR)</span>
+                        </label>
+                        <label class="radio_label">
+                            <input type="radio" name="currency" value="USD">
+                            <span>US Dollar ($ USD)</span>
+                        </label>
+                    </div>
+                    <span class="error_message"></span>
+                </div>
+            </section>
+            <section class="form_section">
+                <h2>Terms & Policies</h2>
+                <div class="form_group">
+                    <label class="policy_label">
+                        <input type="checkbox" name="shippingPolicy" id="shippingPolicy" required>
+                        <span>I agree to the <a href="#" target="_blank">Shipping Policy</a></span>
+                    </label>
+                    <span class="error_message"></span>
+                </div>
+                <div class="form_group">
+                    <label class="policy_label">
+                        <input type="checkbox" name="returnPolicy" id="returnPolicy" required>
+                        <span>I agree to the <a href="#" target="_blank">Return & Refund Policy</a></span>
+                    </label>
+                    <span class="error_message"></span>
+                </div>
+                <div class="form_group">
+                    <label class="policy_label">
+                        <input type="checkbox" name="qualityAssurance" id="qualityAssurance" required>
+                        <span>I commit to <a href="#" target="_blank">Quality Assurance Standards</a></span>
+                    </label>
+                    <span class="error_message"></span>
+                </div>
+                <div class="form_group">
+                    <label class="policy_label">
+                        <input type="checkbox" name="termsConditions" id="termsConditions" required>
+                        <span>I accept all <a href="#" target="_blank">Terms & Conditions</a></span>
+                    </label>
+                    <span class="error_message"></span>
+                </div>
+            </section>
             <div class="form_actions">
                 <button type="submit" class="btn_primary">SUBMIT</button>
                 <button type="reset" class="btn_secondary">Clear Form</button>
