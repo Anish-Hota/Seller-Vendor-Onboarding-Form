@@ -153,6 +153,26 @@ function checkCurrency(value) {
     if (!value) return 'Please select a currency';
     return '';
 }
+function checkShippingPolicy() {
+    const checkbox = document.getElementById('shippingPolicy');
+    if (!checkbox.checked) return 'You must agree to the shipping policy';
+    return '';
+}
+function checkReturnPolicy() {
+    const checkbox = document.getElementById('returnPolicy');
+    if (!checkbox.checked) return 'You must agree to the return and refund policy';
+    return '';
+}
+function checkQualityAssurance() {
+    const checkbox = document.getElementById('qualityAssurance');
+    if (!checkbox.checked) return 'You must commit to quality assurance standards';
+    return '';
+}
+function checkTermsConditions() {
+    const checkbox = document.getElementById('termsConditions');
+    if (!checkbox.checked) return 'You must accept the terms and conditions';
+    return '';
+}
 function validateInputField(field) {
     const fieldName = field.name || field.id;
     let fieldValue = field.value;
