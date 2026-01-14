@@ -339,11 +339,41 @@
                 <button type="reset" class="btn_secondary">Clear Form</button>
             </div>
         </form>
-
-        <div id="successMessage" class="success_message" style="display: none;">
-            <h3>Completed</h3>
-            <p>Your business and banking information has been saved successfully.</p>
         </div>
+
+        <div class="table container">
+            <div class="Section_title">
+                <h2>Registered Vendors</h2>
+                <span class="vendor_count" id="vendorCount">0 vendors</span>
+            </div>
+            <div class="table_wrapper">
+                <table id="vendorTable">
+                    <thread>
+                        <tr>
+                            <th>#</th>
+                            <th>Business Name</th>
+                            <th>Owner Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Store Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thread>
+                    <tbody id="vendorsTableBody">
+                        <tr class="empty_row">
+                            <td colspan="7" class="empty_message">
+                                <div class="empty_state">
+                                    <p>No vendors registered yet</p>
+                                    <small>Fill the form </small>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
     </div>
 
     <script src="scripts/errorHandler.js"></script>
