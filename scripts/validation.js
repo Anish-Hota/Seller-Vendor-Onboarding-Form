@@ -130,10 +130,6 @@ function checkStoreName(value) {
     if (!value) return 'Store name is required';
     if (value.length < 5) return 'Store name must be at least 5 characters';
     if (value.length > 50) return 'Store name cannot exceed 50 characters';
-    const slug = value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    if (existingStoreNames.has(slug)) {
-        return 'This store name is already taken. Try a different name';
-    }
     return '';
 }
 function checkStoreDescription(value) {
