@@ -8,9 +8,10 @@ const vendorTableBody = document.getElementById('vendorTableBody');
 const vendorCountEl = document.getElementById('vendorCount');
 
 let vendors = [];
+let editingIndex = -1; 
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('=== DAY 1: ADD Functionality ===');
+    console.log('=== DAY 2: ADD + EDIT Functionality ===');
     
     const today = new Date();
     const maxDob = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
@@ -22,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function setupListeners() {
-    // Business Type Conditional Logic
     document.querySelectorAll('input[name="businessType"]').forEach(r => {
         r.addEventListener('change', (e) => {
             const needs = ['partnership', 'private-limited', 'public-limited', 'llp'].includes(e.target.value);
@@ -35,8 +35,6 @@ function setupListeners() {
             validateInputField(e.target);
         });
     });
-    
-    // Tax Status Conditional Logic
     document.querySelectorAll('input[name="taxStatus"]').forEach(r => {
         r.addEventListener('change', (e) => {
             const isReg = e.target.value === 'registered';
@@ -49,8 +47,6 @@ function setupListeners() {
             validateInputField(e.target);
         });
     });
-    
-    // Real-time Validation
     form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, textarea').forEach(i => {
         i.addEventListener('blur', () => { 
             if (i.value || i.required) validateInputField(i); 
@@ -59,19 +55,11 @@ function setupListeners() {
             if (i.closest('.form_group').classList.contains('error')) validateInputField(i); 
         });
     });
-    
-    // Categories Validation
     document.querySelectorAll('input[name="categories"]').forEach(c => {
         c.addEventListener('change', () => validateInputField(c));
     });
-    
-    // Form Submit - ADD ONLY
     form.addEventListener('submit', handleSubmit);
-    
-    // Form Reset
     form.addEventListener('reset', handleReset);
-    
-    // Prevent Enter Key Submit
     form.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') e.preventDefault();
     });
@@ -81,26 +69,17 @@ function handleSubmit(e) {
     e.preventDefault();
     
     let valid = true;
-    
-    // Validate all fields
     [...form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select, textarea')]
         .forEach(i => { if (!validateInputField(i)) valid = false; });
-    
-    // Validate radio groups
     ['businessType', 'taxStatus', 'currency'].forEach(n => {
         if (!validateInputField(document.querySelector(`input[name="${n}"]`))) valid = false;
     });
-    
-    // Validate categories
     if (!validateInputField(document.querySelector('input[name="categories"]'))) valid = false;
-    
-    // Validate checkboxes
     ['shippingPolicy', 'returnPolicy', 'qualityAssurance', 'termsConditions'].forEach(id => {
         if (!validateInputField(document.getElementById(id))) valid = false;
     });
     
     if (valid) {
-        // DAY 1: ONLY ADD NEW VENDOR
         const formData = new FormData(form);
         const vendorData = {};
         
@@ -113,12 +92,18 @@ function handleSubmit(e) {
             }
         }
         
-        // Add new vendor to array
-        vendors.push(vendorData);
-        console.log('✅ Vendor Added:', vendorData);
-        showSuccessMessage('Vendor registered successfully!');
+        if (editingIndex === -1) {
+            vendors.push(vendorData);
+            console.log(' Vendor Added:', vendorData);
+            showSuccessMessage('Vendor registered successfully!');
+        } else {
+            vendors[editingIndex] = vendorData;
+            console.log(' Vendor Updated:', vendorData);
+            showSuccessMessage('Vendor updated successfully!');
+            editingIndex = -1;
+            submitBtn.textContent = 'SUBMIT';
+        }
         
-        // Render table and reset form
         renderTable();
         form.reset();
         handleReset();
@@ -134,11 +119,16 @@ function handleReset() {
     form.querySelectorAll('.form_group').forEach(g => g.classList.remove('error', 'valid'));
     regGroup.style.display = 'none';
     gstGroup.style.display = 'none';
+    editingIndex = -1;
+    submitBtn.textContent = 'SUBMIT';
+    
+    document.querySelectorAll('#vendorTableBody tr').forEach(row => {
+        row.classList.remove('editing');
+    });
 }
 
 function renderTable() {
     vendorTableBody.innerHTML = '';
-    
     if (vendors.length === 0) {
         vendorTableBody.innerHTML = `
             <tr class="empty_row">
@@ -156,8 +146,6 @@ function renderTable() {
     
     vendors.forEach((vendor, index) => {
         const row = document.createElement('tr');
-        
-        // Format categories array to display nicely
         const categories = Array.isArray(vendor.categories) 
             ? vendor.categories.join(', ') 
             : vendor.categories || 'N/A';
@@ -187,7 +175,7 @@ function renderTable() {
             <td>${vendor.storeName || 'N/A'}</td>
             <td>${vendor.currency || 'N/A'}</td>
             <td>
-                <button class="action_btn edit_btn" disabled title="Coming in Day 2">Edit</button>
+                <button class="action_btn edit_btn" onclick="editVendor(${index})">Edit</button>
                 <button class="action_btn delete_btn" disabled title="Coming in Day 3">Delete</button>
             </td>
         `;
@@ -196,7 +184,52 @@ function renderTable() {
     
     vendorCountEl.textContent = `${vendors.length} vendor${vendors.length !== 1 ? 's' : ''}`;
 }
+function editVendor(index) {
+    editingIndex = index;
+    const vendor = vendors[index];
+    
+    console.log('📝 Editing vendor at index:', index);
+    Object.keys(vendor).forEach(key => {
+        const input = form.querySelector(`[name="${key}"]`);
+        
+        if (input) {
+            if (input.type === 'radio') {
+                const radio = form.querySelector(`input[name="${key}"][value="${vendor[key]}"]`);
+                if (radio) radio.checked = true;
+            } else if (input.type === 'checkbox') {
+                if (Array.isArray(vendor[key])) {
+                    vendor[key].forEach(val => {
+                        const checkbox = form.querySelector(`input[name="${key}"][value="${val}"]`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                } else {
+                    input.checked = true;
+                }
+            } else {
+                input.value = vendor[key] || '';
+            }
+        }
+    });
+    
+    const businessType = vendor.businessType;
+    if (['partnership', 'private-limited', 'public-limited', 'llp'].includes(businessType)) {
+        regGroup.style.display = 'block';
+        regInput.required = true;
+    }
+    
+    const taxStatus = vendor.taxStatus;
+    if (taxStatus === 'registered') {
+        gstGroup.style.display = 'block';
+        gstInput.required = true;
+    }
 
+    submitBtn.textContent = 'UPDATE';
+    
+    document.querySelectorAll('#vendorTableBody tr').forEach((row, idx) => {
+        row.classList.toggle('editing', idx === index);
+    });
+    document.querySelector('.form_container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 function showSuccessMessage(message) {
     const notification = document.createElement('div');
     notification.style.cssText = `
@@ -218,7 +251,6 @@ function showSuccessMessage(message) {
         notification.remove();
     }, 3000);
 }
-
 function setupCharCounter() {
     const storeDescTextarea = document.getElementById('storeDescription');
     const charCounter = document.querySelector('.char_counter');
