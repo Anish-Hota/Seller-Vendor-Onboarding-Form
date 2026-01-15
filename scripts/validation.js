@@ -142,13 +142,6 @@ function checkStoreDescription(value) {
     if (value.length > 500) return 'Description cannot exceed 500 characters';
     return '';
 }
-function checkStoreSlug(value) {
-    if (!value) return 'Store URL slug is required';
-    const slugPattern = /^[a-z0-9-]+$/;
-    if (!slugPattern.test(value)) return 'Slug can only contain lowercase letters, numbers, and hyphens';
-    if (value.length < 3) return 'Slug must be at least 3 characters';
-    return '';
-}
 function checkCurrency(value) {
     if (!value) return 'Please select a currency';
     return '';
@@ -250,9 +243,6 @@ function validateInputField(field) {
             break;
         case 'storDescription' :
             errorMsg = checkStoreDescription(fieldValue);
-            break;
-        case 'storeSlug' :
-            errorMsg = checkStoreSlug(fieldValue);
             break;
         case 'currency':
             const selectedCurrency = document.querySelector('input[name="currency"]:checked');
